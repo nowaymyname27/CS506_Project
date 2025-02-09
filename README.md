@@ -1,4 +1,4 @@
-
+ 
 # Sentiment Analysis and Stock Price Predictions
 
 ## Description
