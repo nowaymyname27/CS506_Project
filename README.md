@@ -67,7 +67,7 @@ To build a robust model, we will analyze approximately 20-30 companies, which wi
 
 ## <a id="testing_plan">Testing Plan</a>
 - **Train/Test Split**: 80% training, 20% testing.
-- **Time-Based Validation**: Train on historical data (Feb-March), test on recent data (April).
+- **Time-Based Validation**: Train on historical data (during Feb-March), test on recent data (during April).
 
 ## <a id="credits">Team Members</a>
 The work is done by a group of students at Boston University for the *CS 506 - Data Science Tools and Applications* course:
