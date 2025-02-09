@@ -23,31 +23,32 @@ This project investigates the impact of public sentiment from social media and f
 ## <a id="data_collection">Data Collection</a>
 
 ### Sources
-- **Social Media**: X, Reddit (r/investing, r/stocks, etc.).
-- **Financial News**:Financial Times.
-- **Stock Market Data**: Yahoo Finance API, Alpha Vantage, Google Finance, Bloomberg.
+- **Social Media:** X, Reddit, Facebook, Stocktwits (more if needed)
+  - This will be used for the collection of public sentiment
+- **Financial News:** Bloomberg, Financial Times, MarketWatch (more if needed)
+  - This will be used for the collection of more concrete financial data and more professional sentiment
+- **Stock Market Data:** Yahoo Finance API, Alpha Vantage, Google Finance, Bloomberg.
+  - This will be used for the collection of the actual stock market data (preference to Yahoo Finance)
 
 ### Methods
-- **Social Media Scraping**: We will use APIs such as the X API and Pushshift API (for Reddit) to collect posts and comments about specific companies.
-- **Financial News Scraping**: News headlines will be gathered using BeautifulSoup and Scrapy.
-- **Stock Price Data**: APIs like Yahoo Finance or Alpha Vantage will be used to obtain historical stock price data.
-- **Sentiment Analysis**: We will apply NLP techniques to classify sentiment (positive, negative, neutral) using pre-trained models (VADER, TextBlob, or FinBERT).
-- **Real-Time Sentiment Analysis**: We will integrate Bytewax's NLP streaming framework to process live Twitter data and analyze immediate sentiment trends.
+- **Social Media and Financial Scraping:** The data will be collected from these sources via their own API’s (such as X API for Twitter, Pushshift API for Reddit, Scrapy for news headlines, etc.) or libraries such as Hugging Face. 
+- **Stock Price Data:** APIs like Yahoo Finance or Alpha Vantage will be used to obtain historical stock price data.
+- **Sentiment Analysis:** We will apply NLP techniques to classify sentiment (positive, negative, neutral) partially through our own analysis and partially using pre-trained models (such as VADER, TextBlob, or FinBERT)
+- **Real-Time Sentiment Analysis:** We will integrate Bytewax's NLP streaming framework to process live Twitter data and analyze immediate sentiment trends.
+- **LLMs:** Use built LLMs (such as ChatGPT) to guide data scraping from Social Media (hashtag generation given a company name)
 
-## <a id="companies_and_time">Companies and Time Period</a>
-To build a robust model, we will analyze approximately 20-30 companies, which will be randomly chosen from S&P 500. For the time period, we will collect sentiment data over a rolling window of the past 6 to 12 months to capture both short-term fluctuations and broader trends. Predictions will be made using different time frames:
-- **Short-Term Predictions**: Based on sentiment from today, predicting stock price movement for the next day.
-- **Medium-Term Trends**: Analyzing sentiment over a week and predicting stock price shifts over the next 7 days.
-- **Long-Term Trends**: Assessing sentiment trends over a month to predict broader stock movements.
+## <a id="companies_and_time">Selection of Companies and Time Period:</a>
+- **Company Selection:** we will select 20-30 companies from the S&P500 based on their popularity to make sure that there is enough data available from social media.
+- **Time Period:** Total predictions will be made using a set time frame based on the stock tick increments available to us, with a preference given to a smaller time window (such as day/week, maybe/unlikely month). There will be multiple assessments throughout the day for all of these methods. 
 
 ## <a id="data_processing">Data Processing & Feature Engineering</a>
 ### Data Cleaning
-- Removing irrelevant posts, duplicate content, and non-English text.
+- Removing irrelevant posts, duplicate content, and non-English text, removal of URLs, etc.
 
 ### Feature Extraction
-- Sentiment scores (positive/negative/neutral).
-- Volume of mentions per company per day.
-- Weighted sentiment scores based on user engagement (likes, retweets, comments).
+- The volume of mentions per company per day.
+- Weighted sentiment scores based on user engagement (likes, retweets, comments)
+- Other extraction techniques will become increasingly obvious when we start collecting data
 
 ### Time Alignment
 - Synchronizing sentiment data with stock price movements.
@@ -58,8 +59,11 @@ To build a robust model, we will analyze approximately 20-30 companies, which wi
 
 ### Advanced Models (Rough Plan)
 - Random Forest, XGBoost for feature importance evaluation.
-- LSTM or GRU-based neural networks for time-series prediction.
 - Transformer-based sentiment analysis (e.g., FinBERT for financial sentiment classification).
+- LLM-based approaches that will allow us to convert textual data to numerical vector embeddings
+  - This will be used as an input to various models together with the financial time series data to predict stock movement
+- Possibly use neural networks and deep learning (more details expected to be learned from this class)
+  - This could be LSTM or GRU-based neural networks
 
 ## <a id="data_visualization">Data Visualization (Rough Plan)</a>
 - **Stock Price vs. Sentiment**: Plots which show correlation.
@@ -68,6 +72,7 @@ To build a robust model, we will analyze approximately 20-30 companies, which wi
 ## <a id="testing_plan">Testing Plan</a>
 - **Train/Test Split**: 80% training, 20% testing.
 - **Time-Based Validation**: Train on historical data (during Feb-March), test on recent data (during April).
+- **Benchmark strategy:** Beat a “buy-and-hold” user and/or beat S&P500 return over the same period
 
 ## <a id="credits">Team Members</a>
 The work is done by a group of students at Boston University for the *CS 506 - Data Science Tools and Applications* course:
