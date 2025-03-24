@@ -4,7 +4,7 @@ import time
 from datetime import datetime, timezone  # Import timezone
 
 # Replace with your actual News API key
-API_KEY = "4a3d2a0f17b54952908d9f7ce2fb621d"
+API_KEY = ""
 
 # Define the endpoint
 url = "https://newsapi.org/v2/everything"

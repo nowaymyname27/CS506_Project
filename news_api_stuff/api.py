@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import csv
 
 # Replace with your actual API key
-API_KEY = "eSqTQAPlngKad85UGQsPog2zmK0QR0VkCktV8mn5"
+API_KEY = ""
 url = "https://api.marketaux.com/v1/news/all"
 
 
