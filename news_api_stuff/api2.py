@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import csv
 
 # Replace with your actual API key
-API_KEY = "dWDOolNleMJFGhsBbGE3Yb7bwJspiMQ5"
+API_KEY = ""
 # Define the endpoint
 url = f"https://financialmodelingprep.com/stable/fmp-articles"
 
