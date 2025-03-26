@@ -76,8 +76,8 @@ to_date = datetime.strptime("2024-12-31", "%Y-%m-%d")
 # if you want only top level comments instead of all comments, you can set field to "parent_id" instead of "link_id"
 
 # change this to field = None if you don't want to filter by anything
-field = "permalink"
-values = ['Tesla']
+field = "body"
+values = ['Tesla', 'Elon Musk', 'elon', 'musk']
 # if you have a long list of values, you can put them in a file and put the filename here. If set this overrides the value list above
 # if this list is very large, it could greatly slow down the process
 values_file = None

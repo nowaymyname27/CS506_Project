@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("original_output.csv", header=None)
+df = pd.read_csv("output.csv", header=None)
 
 df = df[df[4] != '[removed]']
 
