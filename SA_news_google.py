@@ -1,7 +1,7 @@
 import pandas as pd
 from google.cloud import language_v1
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "sentiment-analysis-455017-0844dc588737.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/alya57/Desktop/CS506/Alika-branch/sentiment-analysis-455017-0844dc588737.json"
 df = pd.read_csv("newsapi_tesla2.csv")
 client = language_v1.LanguageServiceClient()
 def analyze_sentiment(text):
@@ -17,5 +17,5 @@ def analyze_sentiment(text):
     except Exception as e:
         print(f"Error processing text: {e}")
         return pd.Series([None, None])
-df[['gcloud_sentiment_score', 'gcloud_sentiment_magnitude']] = df['tesla_sentences'].apply(analyze_sentiment)
-df.to_csv("tesla_news_with_gcloud_sentiment.csv", index=False)
+df[['title_sentiment_score', 'title_sentiment_magnitude']] = df['title'].apply(analyze_sentiment)
+df.to_csv("SA_news_titles_google.csv", index=False)
