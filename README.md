@@ -1,6 +1,5 @@
 # Sentiment Analysis and Stock Price Predictions
 
-# Sentiment Analysis and Stock Price Predictions
 
 
 ## <a id="about">Project Description</a>
