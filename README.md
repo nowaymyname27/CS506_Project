@@ -30,7 +30,7 @@ Initially, our goal was to extract financial news articles from the **Financial 
 
 As a result, we pivoted to a more accessible solution. After evaluating several general news APIs, we selected **[NewsAPI.org](https://newsapi.org/)** due to its **generous free tier** and minimal restrictions. Although it imposes a **100-request daily limit** and only provides access to articles from the **last 30 days**, it proved suitable for our initial data gathering needs.
 
-We used NewsAPI to extract **100 news articles related to Tesla**, which were then used for sentiment analysis. After the initial data collection, we refined our approach by **filtering the article content to include only the sentences that specifically mentioned Tesla**, ensuring our sentiment analysis remained focused and relevant.
+We used NewsAPI to extract **50 news articles related to Tesla**, which were then used for sentiment analysis. After the initial data collection, we refined our approach by **filtering the article content to include only the sentences that specifically mentioned Tesla**, ensuring our sentiment analysis remained focused and relevant.
 
 ### Sentiment Analysis
 
