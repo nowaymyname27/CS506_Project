@@ -24,9 +24,13 @@ Our ultimate goal by the end of the semester is to repeat the procedure we descr
 
 ### Data Extraction
 
-We describe sources found, methods used, and challenges met (e.g., too expensive, limits in terms of comments you can extract).
+#### Financial News Data Extraction
 
-Further plans regarding data extraction are also described.
+Initially, our goal was to extract financial news articles from the **Financial Times**, given its reputation and relevance. However, we encountered two significant obstacles: the site’s content is **behind a paywall**, and their **API access requires paid plans and business credentials** that were beyond our scope for this project.
+
+As a result, we pivoted to a more accessible solution. After evaluating several general news APIs, we selected **[NewsAPI.org](https://newsapi.org/)** due to its **generous free tier** and minimal restrictions. Although it imposes a **100-request daily limit** and only provides access to articles from the **last 30 days**, it proved suitable for our initial data gathering needs.
+
+We used NewsAPI to extract **100 news articles related to Tesla**, which were then used for sentiment analysis. After the initial data collection, we refined our approach by **filtering the article content to include only the sentences that specifically mentioned Tesla**, ensuring our sentiment analysis remained focused and relevant.
 
 ### Sentiment Analysis
 
