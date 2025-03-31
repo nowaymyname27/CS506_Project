@@ -75,17 +75,47 @@ Looking ahead, our goal is to fine-tune the RoBERTa model on a custom dataset co
 
 **Data Processing and Modeling Description:**
 
+The first step of the data modeling was to clean up some of the data that was provided via the APIs and the sentiment analysis. There were a lot of columns that were not useful for the model, so those were removed. Additionally, data was adjusted so that it was formatted the same across all csv files. After that, the sentiment was compressed to only one column instead of the original 2. The way this was done differed between files, but for all, both the magnitude and "direction" of the sentiment were taken into account. 
+
+After all the pre-processing was done, the data needed to be compressed. Since both the stock data and the Reddit data were daily, we decided to compress the Reddit sentiment to an average of all daily values. Then, we aggregated the sentiment from the weekends and from holidays to the nearest weekday before such events. Finally, we added all the files together into one csv file. 
+
+For modeling, we tried quite a few preliminary approaches. Since there were so few data points, we made a quick attempt at using RandomForest, but quickly realised that this option would not work well. So instead, we decided to go with leave-one-out cross-validation (LOO-CV). This meant that we trained the model on all points but one, predicting that point, and repeated this process for all points in the dataset. We used the sentiment analysis as the features, and either the difference or the open value for the target. Unfortunately, none of these models yielded satisfactory results, as can be seen in the corresponding plots. The only model that yielded good predictions was a LOO-CV model that also used previous_close as a feature and open as the target. Despite being a great model, this model is not particularly useful, since it is essentially a moving average time series, which has little to do with the sentiment analysis and can be predicted with great accuracy using non-data-science approaches. 
+
+**Issues and Moving Forward:**
+
+The clear big issue in the current iteration of the project is that the model does a poor job. This could be due to a multitude of factors, all of which are fixable and modifyable for the final product:
+1. A different model could be used
+2. The sentiment analysis could be tweaked, as the current one is slightly rough.
+3. The data search could be fine-tuned so that the sentiment analysis can run better.
+4. The aggregation of sentiment can be done via a different method that is not just an average
+5. And most importantly, if we manage to get more expansive data (covering more time so that the model has more to train on), we could significantly improve the output of this model.
+
+The following are the files that were used in this section: 
+
 **First, some data processing was done:**
 
-- files go here
+- `adjust-stocks.py` - perform some stock filtering
+- `filter-SA.py` - filter useful information out of the large csv files given by the SA models
+- `adjust-date.py` - make sure all dates are up to standard
+- `adjust-sentiment.py` - make all of the sentiments into one column via differing methods based on the SA model used
+- `merge-SA.py` - after running all of the above, generate a single csv file with compressed data, as described two sections above.
+- `TSLA_Merged.csv` - the resulting csv after running everything
+- all other csv files - intermediate saves
 
 **Relevant data modeling files:**
 
- - files go here
+ - `model-dif-forest.py` - the rather unsuccessful first model attempt using random forest - kept solely for future reference
+ - `model-dif-loocv.py` - model that uses LOO-CV and predicts the difference between yesterday's close and today's open
+ - `model-open-loocv.py` - model that uses LOO-CV and predicts the today's open only
+ - `model-test.py` - temporary tester file that is used to try small tweaks. Currently contains the moving-average-esqe model that is described two sections above.
+ - `plot-model.py` - plot the models - code modified manually for each model's result (will be modified later to include everything in a single run)
+ - csv files - results from these files, named logically to fit the model they come from
 
 **Relevant plot files:**
 
- - files go here
+ - `Dif_LOOCV_Plot.png` - plot of the `model-dif-loocv.py` result
+ - `Open_LOOCV_Plot.png` - plot of the  `model-open-loocv.py` result
+ - `TEST_Plot.png` - plot of the `model-test.py` result
 
 ## <a id="credits">Team Members</a>
 
