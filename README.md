@@ -24,6 +24,21 @@ Our ultimate goal by the end of the semester is to repeat the procedure we descr
 
 ### Data Extraction
 
+### Reddit Data Extraction
+
+At the start of the project we wanted to extract Reddit data related to specific dates - the January 2025. However, we faced several issues collecting this data:
+
+1. Reddit does nt give you opportunity to easily search comments by their dates;
+2. Free version of API that allows extracting Reddit data did not let us have comments past three days from today (for example, we tried it on March 18th, but were able to get data from March 18th to March 15th, or from March 21st to March 18th);
+3. Datasets that were collected and uploaded for free from the Internet were only up to December 2024;
+4. First attempts took Days to process and filter this data.
+
+Finally, we decided to switch our vector to work on December 2024 because it was the most recent data made by other enthusiasts and uploaded on **[AcademicTorrents.com](academictorrents.com)**. We collected 33 gb of Reddit data for December 2024, and used filtering code to extract specific lines that we were interested in.
+
+After that, we needed to polish this data:
+1. We removed all non-relevant comments that were too small or didn't contain discussions regarding Tesla or Elon Musk;
+2. We sampled 3000 random comments (from about 100000) for our project needs.
+
 #### Financial News Data Extraction
 
 Initially, our goal was to extract financial news articles from the **Financial Times**, given its reputation and relevance. However, we encountered two significant obstacles: the site’s content is **behind a paywall**, and their **API access requires paid plans and business credentials** that were beyond our scope for this project.
