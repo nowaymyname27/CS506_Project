@@ -1,80 +1,67 @@
 # Sentiment Analysis and Stock Price Predictions
 
-### Table of content
 
-- [*Project Description*](#about)
-- [*Goals*](#goals)
-- [*Data Collection*](#data_collection)
-- [*Companies and Time Period*](#companies_and_time)
-- [*Data Processing*](#data_processing)
-- [*Modeling Approach*](#modeling_approach)
-- [*Data Visualization*](#data_visualization)
-- [*Testing Plan*](#testing_plan)
-- [*Credits*](#credits)
-  
+
 ## <a id="about">Project Description</a>
+
 This project investigates the impact of public sentiment from social media and financial news about a certain company on its stock price movements. By analyzing the quantity and quality of comments on platforms such as X and Reddit, along with financial news headlines (Financial Times), we aim to build a model which will predict the movements in stock price of a particular company based on the public opinion.
 
 ## <a id="goals">Goals</a>
+
 - **Analyze** the correlation between public sentiment and stock price movements.
 - **Develop** a predictive model to forecast stock price changes based on sentiment data.
 - **Identify** which social media and financial news sources have the most significant impact on stock prices.
 
-## <a id="data_collection">Data Collection</a>
+## Midterm Update
 
-### Sources
-- **Social Media:** X, Reddit, Facebook, Stocktwits (more if needed)
-  - This will be used for the collection of public sentiment
-- **Financial News:** Bloomberg, Financial Times, MarketWatch (more if needed)
-  - This will be used for the collection of more concrete financial data and more professional sentiment
-- **Stock Market Data:** Yahoo Finance API, Alpha Vantage, Google Finance, Bloomberg.
-  - This will be used for the collection of the actual stock market data (preference to Yahoo Finance)
+### Revised Project Description and Goals
 
-### Methods
-- **Social Media and Financial Scraping:** The data will be collected from these sources via their own API’s (such as X API for Twitter, Pushshift API for Reddit, Scrapy for news headlines, etc.) or libraries such as Hugging Face. 
-- **Stock Price Data:** APIs like Yahoo Finance or Alpha Vantage will be used to obtain historical stock price data.
-- **Sentiment Analysis:** We will apply NLP techniques to classify sentiment (positive, negative, neutral) partially through our own analysis and partially using pre-trained models (such as VADER, TextBlob, or FinBERT)
-- **Real-Time Sentiment Analysis:** We will integrate Bytewax's NLP streaming framework to process live Twitter data and analyze immediate sentiment trends.
-- **LLMs:** Use built LLMs (such as ChatGPT) to guide data scraping from Social Media (hashtag generation given a company name)
+After diving deeper into the project, we faced several challenges and asked ourselves various questions, leading to a slightly modified project description and goals.
 
-## <a id="companies_and_time">Selection of Companies and Time Period:</a>
-- **Company Selection:** we will select 20-30 companies from the S&P500 based on their popularity to make sure that there is enough data available from social media.
-- **Time Period:** Total predictions will be made using a set time frame based on the stock tick increments available to us, with a preference given to a smaller time window (such as day/week, maybe/unlikely month). There will be multiple assessments throughout the day for all of these methods. 
+In the past month, we asked ourselves a question: what if the companies we choose to analyze (randomly) are very stable in the market, and for them, even major discussions on social media do not result in stock price movements? After talking to several financial experts who confirmed our concern, we decided to start our project by building a model that predicts stock price movements of a company based on public sentiment expressed in social media and news articles for a company that is 1) widely discussed, and 2) significantly affected by public opinion. For such purposes, we chose Tesla.
 
-## <a id="data_processing">Data Processing & Feature Engineering</a>
-### Data Cleaning
-- Removing irrelevant posts, duplicate content, and non-English text, removal of URLs, etc.
+Our ultimate goal by the end of the semester is to repeat the procedure we describe below for different companies from various sectors and conclude which types of companies the correlation we are researching actually exists. Below, we describe the work done so far and further goals for the rest of the semester.
 
-### Feature Extraction
-- The volume of mentions per company per day.
-- Weighted sentiment scores based on user engagement (likes, retweets, comments)
-- Other extraction techniques will become increasingly obvious when we start collecting data
+### Data Extraction
 
-### Time Alignment
-- Synchronizing sentiment data with stock price movements.
+#### Financial News Data Extraction
 
-## <a id="modeling_approach">Modeling Approach</a>
-### Base Models
-- Simple regression models to test initial correlations between the sentiment data collected and stock prices movements.
+Initially, our goal was to extract financial news articles from the **Financial Times**, given its reputation and relevance. However, we encountered two significant obstacles: the site’s content is **behind a paywall**, and their **API access requires paid plans and business credentials** that were beyond our scope for this project.
 
-### Advanced Models (Rough Plan)
-- Random Forest, XGBoost for feature importance evaluation.
-- Transformer-based sentiment analysis (e.g., FinBERT for financial sentiment classification).
-- LLM-based approaches that will allow us to convert textual data to numerical vector embeddings
-  - This will be used as an input to various models together with the financial time series data to predict stock movement
-- Possibly use neural networks and deep learning (more details expected to be learned from this class)
-  - This could be LSTM or GRU-based neural networks
+As a result, we pivoted to a more accessible solution. After evaluating several general news APIs, we selected **[NewsAPI.org](https://newsapi.org/)** due to its **generous free tier** and minimal restrictions. Although it imposes a **100-request daily limit** and only provides access to articles from the **last 30 days**, it proved suitable for our initial data gathering needs.
 
-## <a id="data_visualization">Data Visualization (Rough Plan)</a>
-- **Stock Price vs. Sentiment**: Plots which show correlation.
-- **Feature Importance**: Bar charts illustrating which sentiment features contribute most to predictions.
+We used NewsAPI to extract **50 news articles related to Tesla**, which were then used for sentiment analysis. After the initial data collection, we refined our approach by **filtering the article content to include only the sentences that specifically mentioned Tesla**, ensuring our sentiment analysis remained focused and relevant.
 
-## <a id="testing_plan">Testing Plan</a>
-- **Train/Test Split**: 80% training, 20% testing.
-- **Time-Based Validation**: Train on historical data (during Feb-March), test on recent data (during April).
-- **Benchmark strategy:** Beat a “buy-and-hold” user and/or beat S&P500 return over the same period
+### Sentiment Analysis
+
+After collecting data from Reddit and various news sources, we performed sentiment analysis using three different models tailored for different types of text. For Reddit comments, we used RoBERTa (cardiffnlp/twitter-roberta-base-sentiment), VADER, and Google Cloud Natural Language API.
+
+- **RoBERTa**: A transformer-based model pre-trained on Twitter data, well-suited for short, informal, and noisy social media comments. It classifies sentiment into three categories: positive, neutral, or negative, and returns both a label and confidence score.
+- **VADER**: A rule-based model built specifically for social media, providing a compound score ranging from -1 (most negative) to +1 (most positive), along with discrete sentiment labels.
+- **Google Cloud API**: Returns a sentiment score (from -1 to +1) and a magnitude score representing emotional intensity, designed for general-purpose language analysis.
+
+For news data, we focused on the titles of articles, analyzing them using the Google Cloud model, which worked well given its ability to handle formal, headline-style text.
+
+Looking ahead, our goal is to fine-tune the RoBERTa model on a custom dataset composed of Reddit comments about Tesla labeled using ChatGPT. We found that the RoBERTa model can achieve 93.6% accuracy after being fine-tuned on Twitter comments (https://www.kaggle.com/code/farneetsingh24/sentiment-analysis-93-6-test-accuracy). This will help improve the model’s relevance and accuracy when analyzing content specifically related to Tesla and its owners.
+
+**Relevant files regarding sentiment analysis are:**
+
+- `SA_reddit_roberta.csv`: Results of running the RoBERTa model on comments collected from Reddit.
+- `SA_reddit_RoBERTa.py`: Code for running RoBERTa model.
+- `SA_reddit_Vader.csv`: Results of running the VADER model on comments collected from Reddit.
+- `SA_reddit_Vader.py`: Code for running VADER model.
+- `SA_reddit_google.csv`: Results of running the Google Cloud NLP API on comments collected from Reddit.
+- `SA_reddit_google.py`: Code for running the Google Cloud NLP API.
+- `SA_news_titles_google.csv`: Results of running the Google Cloud NLP API on headlines of collected news articles.
+- `SA_news_google.py`: Code for running the Google Cloud NLP API on news article titles.
+
+### Data Modeling
+
+[Add your data modeling section here]
+
 
 ## <a id="credits">Team Members</a>
+
 The work is done by a group of students at Boston University for the *CS 506 - Data Science Tools and Applications* course:
 - **Alika Grigorova** - alika21@bu.edu
 - **Aleksei Glebov** - aglebov@bu.edu
