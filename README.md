@@ -73,13 +73,24 @@ Looking ahead, our goal is to fine-tune the RoBERTa model on a custom dataset co
 
 ### Data Modeling
 
-[Add your data modeling section here]
+**Data Processing and Modeling Description:**
 
+**First, some data processing was done:**
+
+- files go here
+
+**Relevant data modeling files:**
+
+ - files go here
+
+**Relevant plot files:**
+
+ - files go here
 
 ## <a id="credits">Team Members</a>
 
 The work is done by a group of students at Boston University for the *CS 506 - Data Science Tools and Applications* course:
-- **Alika Grigorova** - alika21@bu.edu
 - **Aleksei Glebov** - aglebov@bu.edu
+- **Alika Grigorova** - alika21@bu.edu
 - **Andrey Mukhin** - amukhin@bu.edu
 - **Jose Ramirez** - galock@bu.edu
