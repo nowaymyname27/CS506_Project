@@ -68,6 +68,7 @@ Looking ahead, our goal is to fine-tune the RoBERTa model on a custom dataset co
 - `SA_reddit_google.csv`: Results of running the Google Cloud NLP API on comments collected from Reddit.
 - `SA_reddit_google.py`: Code for running the Google Cloud NLP API.
 - `SA_news_titles_google.csv`: Results of running the Google Cloud NLP API on headlines of collected news articles.
+- `SA_news_titles_google.csv`: Results of running the Google Cloud NLP API on brief summaries of collected news articles.
 - `SA_news_google.py`: Code for running the Google Cloud NLP API on news article titles.
 
 ### Data Modeling
