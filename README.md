@@ -24,7 +24,7 @@ Our ultimate goal by the end of the semester is to repeat the procedure we descr
 
 ### Data Extraction
 
-### Reddit Data Extraction
+#### Reddit Data Extraction
 
 At the start of the project we wanted to extract Reddit data related to specific dates - the January 2025. However, we faced several issues collecting this data:
 
