@@ -1,18 +1,22 @@
 import pandas as pd
 import torch
 from transformers import RobertaTokenizer, RobertaForSequenceClassification
+
 model_id = "alika21/roberta-sentiment-trained"
 tokenizer = RobertaTokenizer.from_pretrained(model_id)
 model = RobertaForSequenceClassification.from_pretrained(model_id)
 model.eval()
+
 id2label = {0: "negative", 1: "neutral", 2: "positive"}
-column_names = ["comment"]
+column_names = ["index", "date", "author", "link", "comment"]
 df = pd.read_csv("reddit_code/final_output.csv", names=column_names)
+df = df[["date", "comment"]]
 
 print("Data sample:")
 print(df.head())
+
 def predict_sentiment(text):
-    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+    inputs = tokenizer(str(text), return_tensors="pt", truncation=True, padding=True)
     with torch.no_grad():
         outputs = model(**inputs)
         probs = torch.nn.functional.softmax(outputs.logits, dim=1)
@@ -20,7 +24,9 @@ def predict_sentiment(text):
         confidence = probs[0][predicted_class].item()
     return id2label[predicted_class], round(confidence, 3)
 df["predicted_sentiment"], df["confidence"] = zip(*df["comment"].map(predict_sentiment))
+
 output_path = "sentiment_analysis/fine-tuned_Roberta_reddit.csv"
 df.to_csv(output_path, index=False)
 
 print(f"Saved predictions to: {output_path}")
+
