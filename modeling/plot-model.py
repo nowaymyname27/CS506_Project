@@ -1,39 +1,32 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
-# Load the data from CSV
-df = pd.read_csv('TSLA_Dif_LOOCV_Ridge.csv')
+# ------------------ Fancy Cumulative Profit Plot ------------------
 
-# Convert the 'date' column to datetime format for proper plotting
-df['date'] = pd.to_datetime(df['date'])
+# Load trading results
+trading_results = pd.read_csv("Trading_Strategy_Comparison.csv")
 
-# Create a plot
-plt.figure(figsize=(10, 6))
+# Calculate cumulative profits
+trading_results['Cumulative Model Profit'] = trading_results['Profit Model Strategy'].cumsum()
+trading_results['Cumulative Always Buy Profit'] = trading_results['Profit Always Buy Strategy'].cumsum()
 
-# Plot the actual and predicted close prices
-plt.plot(df['date'], df['actual_close'], label='Actual Close', color='blue', linestyle='-', marker='o')
-plt.plot(df['date'], df['predicted_close'], label='Predicted Close', color='red', linestyle='--', marker='x')
+# Plot
+plt.figure(figsize=(14, 7))
 
-# Add labels and title
+# Plot cumulative profits
+plt.plot(trading_results['Date'], trading_results['Cumulative Model Profit'], label='Model Strategy', linewidth=2)
+plt.plot(trading_results['Date'], trading_results['Cumulative Always Buy Profit'], label='Always Buy Strategy', linewidth=2, linestyle='--')
+
+# Highlight buy days
+buy_days = trading_results[trading_results['Model Prediction (1=buy, 0=skip)'] == 1]
+plt.scatter(buy_days['Date'], buy_days['Cumulative Model Profit'], color='green', label='Buy Days', s=30, marker='o', alpha=0.7)
+
+# Labels and grid
 plt.xlabel('Date')
-plt.ylabel('Close Price')
-plt.title('Actual vs Predicted Close Prices')
-
-# Rotate x-axis labels for better readability
-plt.xticks(rotation=45)
-
-# Display grid for better readability
-plt.grid(True)
-
-# Set reasonable y-axis limits based on the min and max values of actual and predicted close
-min_value = min(df['actual_close'].min(), df['predicted_close'].min())
-max_value = max(df['actual_close'].max(), df['predicted_close'].max())
-buffer = (max_value - min_value) * 0.1  # Add 10% buffer to top and bottom for better visibility
-plt.ylim(min_value - buffer, max_value + buffer)
-
-# Display legend
+plt.ylabel('Cumulative Profit ($)')
+plt.title('Cumulative Profit Over Time with Buy Days Highlighted')
 plt.legend()
-
-# Show the plot
+plt.grid(True)
+plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
