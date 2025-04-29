@@ -1,17 +1,17 @@
 import pandas as pd
 
-def process_file(input_file, columns_to_keep, output_file):
-    df = pd.read_csv(input_file)
-    filtered_df = df[columns_to_keep]
-    filtered_df.to_csv(output_file, index=False)
-    print(f"The filtered data has been saved to {output_file}")
+df1 = pd.read_csv("news_sentiment.csv")
+df2 = pd.read_csv("reddit_sentiment.csv")
 
-files_info = [
-    ("SA_reddit_google.csv", ["date", "gcloud_sentiment_score", "gcloud_sentiment_magnitude"], "SAR_GO_Filtered.csv"),
-    ("SA_news_titles_google.csv", ["publishedAt", "title_sentiment_score", "title_sentiment_magnitude"], "SANT_GO_Filtered.csv"),
-    ("SA_reddit_RoBERTa.csv", ["date", "sentiment_label", "confidence"], "SAR_RO_Filtered.csv"),
-    ("SA_reddit_Vader.csv", ["date", "vader_compound", "vader_label"], "SAR_VA_Filtered.csv")
-]
+df1 = df1.rename(columns={'Published': 'date'})
+df1['date'] = df1['date'].str.replace('"', '') 
+df1['date'] = pd.to_datetime(df1['date'], format='%a, %d %b %Y %H:%M:%S %Z')
+df1['date'] = df1['date'].dt.strftime('%Y-%m-%d')
 
-for input_file, columns_to_keep, output_file in files_info:
-    process_file(input_file, columns_to_keep, output_file)
+filtered_df1 = df1[["date", "predicted_sentiment", "confidence"]]
+filtered_df1.to_csv("news_sentiment_filtered.csv", index=False)
+print(f"The filtered data has been saved to news_sentiment_filtered.csv")
+
+filtered_df2 = df2[["date", "predicted_sentiment", "confidence"]]
+filtered_df2.to_csv("reddit_sentiment_filtered.csv", index=False)
+print(f"The filtered data has been saved to reddit_sentiment_filtered.csv")
