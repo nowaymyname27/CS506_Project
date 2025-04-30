@@ -1,4 +1,8 @@
-
+# This file wa uploaded by the creator of data files I found for free for Reddit.
+# I modified it slightly to extract data properly.
+# The original data was contained in 12 different .zst files (representing 12 months of year 2024).
+# This script extracts comments that contain word "tesla" in their bodies.
+# Each month took ~ 4-6 hours of processing with this script and required further work on.
 
 import zstandard
 import os
@@ -7,7 +11,6 @@ import sys
 import csv
 from datetime import datetime
 import logging.handlers
-
 
 input_file = r"RC_2024-11.zst"
 output_file = r"output_11"
@@ -26,7 +29,6 @@ values = ['Tesla']
 # if this list is very large, it could greatly slow down the process
 values_file = None
 exact_match = False
-
 
 # sets up logging to the console as well as a file
 log = logging.getLogger("bot")
