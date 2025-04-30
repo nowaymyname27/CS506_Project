@@ -14,7 +14,7 @@ This project investigates the impact of public sentiment from social media and f
 - **Develop** a predictive model to forecast stock price changes based on sentiment data.
 - **Identify** which social media and financial news sources have the most significant impact on stock prices.
 
-## Midterm Update
+## Final Project Description
 
 ### Revised Project Description and Goals
 
