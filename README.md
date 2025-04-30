@@ -6,7 +6,19 @@
 
 ## Running Instructions
 
-INSTRUCTIONS TO RUN THE CODE
+These instructions assume that the Reddit and news data are already given, as these files take a long time to generate (multiple days). These files can still be created (if wanted) using the code in this repo, but this code will not be included in the pipeline (as allowed). 
+
+#### Requirements:
+
+- ✅ Python 3.13
+- ✅ pip (comes with Python)
+- ✅ make (used to run automated steps)
+
+📁 To install all necessary packages, run `make install`
+
+▶️ To run the pipeline (this also generates the final graph and every intermediate csv for future modularity), run `make run_pipeline`
+
+🧹 To clean, simply run `make clean`
 
 ## Final Project Detailing
 
