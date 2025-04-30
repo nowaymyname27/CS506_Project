@@ -1,4 +1,4 @@
-# This file wa uploaded by the creator of data files I found for free for Reddit.
+# This file was uploaded by the creator of data files I found for free for Reddit.
 # I modified it slightly to extract data properly.
 # The original data was contained in 12 different .zst files (representing 12 months of year 2024).
 # This script extracts comments that contain word "tesla" in their bodies.
