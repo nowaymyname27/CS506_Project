@@ -73,15 +73,15 @@ Looking ahead, our goal is to fine-tune the RoBERTa model on a custom dataset co
 - `SA_news_google.csv`: Results of running the Google Cloud NLP API on brief summaries of collected news articles.
 - `SA_news_google.py`: Code for running the Google Cloud NLP API on news article titles.
 
-### Data Modeling
+### Data Processing
 
-**Data Processing and Modeling Description:**
-
-The first step of the data modeling was to clean up some of the data that was provided via the APIs and the sentiment analysis. There were a lot of columns that were not useful for the model, so those were removed. Additionally, data was adjusted so that it was formatted the same across all csv files. After that, the sentiment was compressed to only one column instead of the original 2. The way this was done differed between files, but for all, both the magnitude and "direction" of the sentiment were taken into account. 
+In order to work with the data effectively, we started by cleaning up the files that the sentiment analysis produced. There were a lot of columns that were not useful for the model, so those were removed. Additionally, the data was adjusted so that it was formatted the same across all csv files. Each sentiment source was split into two parts - the "Deterministic sentiment" and the "Numerical sentiment". The "Deterministic sentiment" took into account only the sentiment prediction, splitting the possible options into 1, 0, or -1. The "Numerical sentiment", on the other hand, also took into account the confidence of the model in its prediction. This was done by multiplying by 1 for positive sentiment, -1 for negative sentiment, and either -0.1 or 0.1 for neutral sentiment (so that this sentiment was still properly accounted for). This process produced just one quantitative sentiment column. 
 
 After all the pre-processing was done, the data needed to be compressed. Since both the stock data and the Reddit data were daily, we decided to compress the Reddit sentiment to an average of all daily values. Then, we aggregated the sentiment from the weekends and from holidays to the nearest weekday before such events. Finally, we added all the files together into one csv file. 
 
 For modeling, we tried quite a few preliminary approaches. Since there were so few data points, we made a quick attempt at using RandomForest, but quickly realised that this option would not work well. So instead, we decided to go with leave-one-out cross-validation (LOO-CV). This meant that we trained the model on all points but one, predicting that point, and repeated this process for all points in the dataset. We used the sentiment analysis as the features, and either the difference or the open value for the target. Unfortunately, none of these models yielded satisfactory results, as can be seen in the corresponding plots. The only model that yielded good predictions was a LOO-CV model that also used previous_close as a feature and open as the target. Despite being a great model, this model is not particularly useful, since it is essentially a moving average time series, which has little to do with the sentiment analysis and can be predicted with great accuracy using non-data-science approaches. 
+
+### Building the Model
 
 **Issues and Moving Forward:**
 
