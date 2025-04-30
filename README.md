@@ -29,18 +29,20 @@ The goals of this project were slightly modified throughout the semester, due to
 
 #### Reddit Data Extraction
 
-At the start of the project we wanted to extract Reddit data related to specific dates - the January 2025. However, we faced several issues collecting this data:
+At the start of the project we wanted to extract Reddit data related to specific dates. However, we faced several issues collecting this data:
 
-1. Reddit does nt give you opportunity to easily search comments by their dates;
+1. Reddit does not give you opportunity to easily search comments by their dates;
 2. Free version of API that allows extracting Reddit data did not let us have comments past three days from today (for example, we tried it on March 18th, but were able to get data from March 18th to March 15th, or from March 21st to March 18th);
 3. Datasets that were collected and uploaded for free from the Internet were only up to December 2024;
 4. First attempts took Days to process and filter this data.
 
-Finally, we decided to switch our vector to work on December 2024 because it was the most recent data made by other enthusiasts and uploaded on **[AcademicTorrents.com](academictorrents.com)**. We collected 33 gb of Reddit data for December 2024, and used filtering code to extract specific lines that we were interested in.
+At the end, we decided to process the whole year 2024 worth of Reddit data. We collected 460 gb of Reddit data for, and used filtering code to extract specific lines that contained word "tesla".
 
 After that, we needed to polish this data:
-1. We removed all non-relevant comments that were too small or didn't contain discussions regarding Tesla or Elon Musk;
-2. We sampled 3000 random comments (from about 100000) for our project needs.
+1. We removed all comments that were broken or removed;
+2. We removed all comments that were too short (less than 10 words), or too long (more than 150 words);
+3. We removed all comments that included names of other popular companies (such as Apple or Google) to ease the sentiment analysis in a way that it analyses only Tesla related comments;
+2. Finally, we sampled 36500 random comments from the whole year (expecting about 100 comments per day) for our project.
 
 
 #### Financial News Data Extraction
