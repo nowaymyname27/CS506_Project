@@ -49,6 +49,14 @@ As a result, we pivoted to a more accessible solution. After evaluating several 
 
 We used NewsAPI to extract **50 news articles related to Tesla**, which were then used for sentiment analysis. After the initial data collection, we refined our approach by **filtering the article content to include only the sentences that specifically mentioned Tesla**, ensuring our sentiment analysis remained focused and relevant.
 
+#### Stocks Data Extraction
+
+For this step, we used the yfinance library, which is a very convenient way to extract stock data from Yahoo Finance. This library is completely free and goes back many years in daily stock prices (including open and close, which were the main metrics for this project). After finding this library, we did not run into any issues - we simply used the library and then cleaned the data that it produced. 
+
+**Relevant file regarding stock extraction is:**
+
+- `stock-extract.py`: extracts stock data using yfinance and removes unnecessary columns. 
+
 ### Sentiment Analysis
 
 After collecting data from Reddit and various news sources, we performed sentiment analysis using three different models tailored for different types of text. For Reddit comments, we used RoBERTa (cardiffnlp/twitter-roberta-base-sentiment), VADER, and Google Cloud Natural Language API.
@@ -79,45 +87,44 @@ In order to work with the data effectively, we started by cleaning up the files 
 
 After these pre-processing steps were done, the data needed to be compressed. First, all of the sentiment csv files were added together into one. Next, since the stock data, the Reddit data, and the news data were daily, we decided to compress the Reddit and news sentiment to an average of all daily values. Then, we aggregated the sentiment from the weekends and holidays to the nearest preceding weekday. Finally, we combined the sentiment file and the stock file into one csv file. 
 
+**Relevant files regarding data processing are:**
+
+- `filter-SA.py`: sorts out any unnecessary columns in the sentiment analysis and formats columns properly
+- `adjust-sentiment.py`: follows through with the sentiment adjustment described in this section
+- `merge-SA.py`: merges the different sentiment files as described in this section
+- `factor-weekends.py`: aggregates weekends and holidays as described, and handles edge cases. Also produced the final processed data. 
+
 ### Building the Model
 
-For modeling, we tried quite a few preliminary approaches. Since there were so few data points, we made a quick attempt at using RandomForest, but quickly realised that this option would not work well. So instead, we decided to go with leave-one-out cross-validation (LOO-CV). This meant that we trained the model on all points but one, predicting that point, and repeated this process for all points in the dataset. We used the sentiment analysis as the features, and either the difference or the open value for the target. Unfortunately, none of these models yielded satisfactory results, as can be seen in the corresponding plots. The only model that yielded good predictions was a LOO-CV model that also used previous_close as a feature and open as the target. Despite being a great model, this model is not particularly useful, since it is essentially a moving average time series, which has little to do with the sentiment analysis and can be predicted with great accuracy using non-data-science approaches. 
+For modeling, we tried quite a few approaches, but ended up going with a combination of GridSearchCV, XGBoost, and a few other small techniques. The approaches that we tried and did not use included RandomForest, Leave-One-Out Cross-Validation (LOO-CV), Long Short-Term Memory (LTSM), etc, and the features that we tried and did not use included TF-IDF, derivatives (first, second, and combo), moving averages, etc. After all, we stopped on the following workflow of the model:
 
-**Issues and Moving Forward:**
+- Loop through each month separately - this allows us to test on the whole year without overtraining the model.
+- For each month, use the given features to train an XGBoost model.
+- For each model, run GridSearchCV to find the best parameters (hyperparameter tuning)
+- Find the best confidence threshold for buying stock
+- Save the resulting classification
+- Simulate trading and evaluate trades
 
-The clear big issue in the current iteration of the project is that the model does a poor job. This could be due to a multitude of factors, all of which are fixable and modifyable for the final product:
-1. A different model could be used
-2. The sentiment analysis could be tweaked, as the current one is slightly rough.
-3. The data search could be fine-tuned so that the sentiment analysis can run better.
-4. The aggregation of sentiment can be done via a different method that is not just an average
-5. And most importantly, if we manage to get more expansive data (covering more time so that the model has more to train on), we could significantly improve the output of this model.
+A little more about the last step - we decided that the most useful yet unbiased way to test our model, given certain API limitations, was to find the total profit given our trading strategy. Since sentiment happens during the day, it would be unreasonable the use the time frame from close to open, so instead we decided that the model should decide whether or not to buy each day at close, and sell (if bought) immediately at open. For the purposes of this model, assume we are always buying exactly one share, and we always have enough money to buy that one share (meaning if the price of the stock goes up during the day, we can still buy effortlessly at close). The benchmark strategy was to buy every single day at close. After eliminating all the randomness in this model, we found that we actually outperformed the default strategy by ____% or $, and even outperformed the total buy-and-hold strategy (meaning buy first day at open, sell last day at close) by ____% or $! This was a very exciting result for us. Profits have been made, and our hypothesis was proven true - the model works. 
 
-The following are the files that were used in this section: 
+**Relevant file regarding building the model is:**
 
-**First, some data processing was done:**
+- 'FINAL-model.py' - the model that we ended up going with (described in this section). 
 
-- `adjust-stocks.py` - perform some stock filtering
-- `filter-SA.py` - filter useful information out of the large csv files given by the SA models
-- `adjust-date.py` - make sure all dates are up to standard
-- `adjust-sentiment.py` - make all of the sentiments into one column via differing methods based on the SA model used
-- `merge-SA.py` - after running all of the above, generate a single csv file with compressed data, as described two sections above.
-- `TSLA_Merged.csv` - the resulting csv after running everything
-- all other csv files - intermediate saves
+### Visualizations
 
-**Relevant data modeling files:**
+ADD HERE
 
- - `model-dif-forest.py` - the rather unsuccessful first model attempt using random forest - kept solely for future reference
- - `model-dif-loocv.py` - model that uses LOO-CV and predicts the difference between yesterday's close and today's open
- - `model-open-loocv.py` - model that uses LOO-CV and predicts the today's open only
- - `model-test.py` - temporary tester file that is used to try small tweaks. Currently contains the moving-average-esqe model that is described two sections above.
- - `plot-model.py` - plot the models - code modified manually for each model's result (will be modified later to include everything in a single run)
- - csv files - results from these files, named logically to fit the model they come from
+**Relevant files regarding visualizations are:**
 
-**Relevant plot files:**
+- 
 
- - `Dif_LOOCV_Plot.png` - plot of the `model-dif-loocv.py` result
- - `Open_LOOCV_Plot.png` - plot of the  `model-open-loocv.py` result
- - `TEST_Plot.png` - plot of the `model-test.py` result
+### Issues and Moving Forward:
+
+Obviously, our model was not perfect - as stated before, we managed to get better results utilizing the randomness, and we did not try absolutely everything that there is to try for financial modeling. However, ultimately, we created a model that works and generates a pretty serious profit - in both negtaive and positive times for Tesla. 
+
+In the future, it would be interesting to see this model applied to current data (scrape the internet for sentiment during the day, run the model near close, and trade accordingly), or even to try expanding this model to other companies. This would be significantly outside the scope of the project, but is plausible and could potentially lead to positive results based on the success of this model. 
+
 
 ## <a id="credits">Team Members</a>
 
