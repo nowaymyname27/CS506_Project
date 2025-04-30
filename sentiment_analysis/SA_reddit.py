@@ -25,7 +25,7 @@ def predict_sentiment(text):
     return id2label[predicted_class], round(confidence, 3)
 df["predicted_sentiment"], df["confidence"] = zip(*df["comment"].map(predict_sentiment))
 
-output_path = "sentiment_analysis/fine-tuned_Roberta_reddit.csv"
+output_path = "sentiment_analysis/reddit_sentiment.csv"
 df.to_csv(output_path, index=False)
 
 print(f"Saved predictions to: {output_path}")

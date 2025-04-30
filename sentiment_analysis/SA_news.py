@@ -28,7 +28,7 @@ def predict_sentiment(text):
 df["predicted_sentiment"], df["confidence"] = zip(*df["Title"].map(predict_sentiment))
 
 # Save to CSV
-output_path = "sentiment_analysis/tesla_2024_with_sentiment.csv"
+output_path = "sentiment_analysis/news_sentiment.csv"
 df.to_csv(output_path, index=False)
 
 print(f"Saved predictions to: {output_path}")
