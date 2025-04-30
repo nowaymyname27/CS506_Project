@@ -1,10 +1,8 @@
 import pandas as pd
-import numpy as np
 from xgboost import XGBClassifier
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import classification_report
 
-# Floating point range generator
+# Floating point range generator (used later)
 def frange(start, stop, step):
     while start <= stop:
         yield start
@@ -44,8 +42,10 @@ for test_month in range(1, 13):
     open_test = test_df['open'].values
     dates_test = test_df['date'].values
 
-    # Grid search
+    # XGBoost
     model = XGBClassifier(random_state=42, eval_metric='logloss')
+    
+    # Grid search
     param_grid = {
         'n_estimators': [100, 300, 500],
         'learning_rate': [0.01, 0.03, 0.05, 0.1],
@@ -53,7 +53,6 @@ for test_month in range(1, 13):
         'subsample': [0.7, 0.8, 0.9, 1.0],
         'colsample_bytree': [0.7, 0.8, 0.9, 1.0]
     }
-
     grid_search = GridSearchCV(
         estimator=model,
         param_grid=param_grid,
@@ -65,7 +64,6 @@ for test_month in range(1, 13):
 
     grid_search.fit(X_train, y_train)
     best_model = grid_search.best_estimator_
-    print(f"✅ Best hyperparameters found for month {test_month:02d}: {grid_search.best_params_}")
 
     # Optimize confidence threshold
     thresholds = [round(x, 2) for x in list(frange(0.50, 0.81, 0.05))]
@@ -88,8 +86,6 @@ for test_month in range(1, 13):
 
     y_pred_proba = best_model.predict_proba(X_test)[:, 1]
     y_pred = (y_pred_proba >= best_threshold).astype(int)
-
-    print(f"✅ Best threshold for month {test_month:02d}: {best_threshold}")
 
     # Save classification
     for d, yt, yp in zip(dates_test, y_test, y_pred):
@@ -126,7 +122,7 @@ for test_month in range(1, 13):
     total_profitable_opportunities = 0
     total_unprofitable_opportunities = 0
 
-    profit_threshold = 0  # Can be adjusted if needed
+    profit_threshold = 0  
 
     for i in range(len(profits_always_buy)):
         expected_profit = profits_always_buy[i]
@@ -161,6 +157,7 @@ for test_month in range(1, 13):
 pd.DataFrame(classified_rows).to_csv("TSLA_Yearly_Classified.csv", index=False)
 pd.DataFrame(strategy_rows).to_csv("Trading_Strategy_Yearly.csv", index=False)
 
+# DONE!
 print("\n✅ All months complete. Files saved:")
 print("- TSLA_Yearly_Classified.csv")
 print("- Trading_Strategy_Yearly.csv")
