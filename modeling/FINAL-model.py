@@ -90,7 +90,6 @@ for test_month in range(1, 13):
     y_pred = (y_pred_proba >= best_threshold).astype(int)
 
     print(f"✅ Best threshold for month {test_month:02d}: {best_threshold}")
-    print(classification_report(y_test, y_pred, target_names=['down', 'up']))
 
     # Save classification
     for d, yt, yp in zip(dates_test, y_test, y_pred):
