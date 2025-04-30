@@ -62,29 +62,29 @@ For this step, we used the yfinance library, which is a very convenient way to e
 
 ### Sentiment Analysis
 
-After collecting data from Reddit and various news sources, we performed sentiment analysis using three different models tailored for different types of text. For Reddit comments, we used RoBERTa (cardiffnlp/twitter-roberta-base-sentiment), VADER, and Google Cloud Natural Language API.
+Before our midterm report, we experimented with various sentiment analysis models and concluded that the most accurate was the transformer-based **RoBERTa** model.
 
-- **RoBERTa**: A transformer-based model pre-trained on Twitter data, well-suited for short, informal, and noisy social media comments. It classifies sentiment into three categories: positive, neutral, or negative, and returns both a label and confidence score.
-- **VADER**: A rule-based model built specifically for social media, providing a compound score ranging from -1 (most negative) to +1 (most positive), along with discrete sentiment labels.
-- **Google Cloud API**: Returns a sentiment score (from -1 to +1) and a magnitude score representing emotional intensity, designed for general-purpose language analysis.
+We found a study that achieved **93.6% accuracy** on sentiment classification of Reddit and Twitter comments after additional training on 200,000 sentiment-labeled examples:  
+[Kaggle Notebook – Sentiment Analysis 93.6% Test Accuracy](https://www.kaggle.com/code/farneetsingh24/sentiment-analysis-93-6-test-accuracy)
 
-For news data, we focused on the titles of articles, analyzing them using the Google Cloud model, which worked well given its ability to handle formal, headline-style text.
+We reproduced this fine-tuning process using the same datasets (limited to 100,000 labeled comments from Twitter and Reddit), and saved the resulting model to Hugging Face as:
 
-Looking ahead, our goal is to fine-tune the RoBERTa model on a custom dataset composed of Reddit comments about Tesla labeled using ChatGPT. We found that the RoBERTa model can achieve 93.6% accuracy after being fine-tuned on Twitter comments (https://www.kaggle.com/code/farneetsingh24/sentiment-analysis-93-6-test-accuracy). This will help improve the model’s relevance and accuracy when analyzing content specifically related to Tesla and its owners.
+[`alika21/roberta-sentiment-trained`](https://huggingface.co/alika21/roberta-sentiment-trained)
 
-**Relevant files regarding sentiment analysis are:**
+#### Fine-Tuning Script
 
-- `SA_reddit_roberta.csv`: Results of running the RoBERTa model on comments collected from Reddit.
-- `SA_reddit_RoBERTa.py`: Code for running RoBERTa model.
-- `SA_reddit_Vader.csv`: Results of running the VADER model on comments collected from Reddit.
-- `SA_reddit_Vader.py`: Code for running VADER model.
-- `SA_reddit_google.csv`: Results of running the Google Cloud NLP API on comments collected from Reddit.
-- `SA_reddit_google.py`: Code for running the Google Cloud NLP API.
-- `SA_news_titles_google.csv`: Results of running the Google Cloud NLP API on headlines of collected news articles.
-- `SA_news_google.csv`: Results of running the Google Cloud NLP API on brief summaries of collected news articles.
-- `SA_news_google.py`: Code for running the Google Cloud NLP API on news article titles.
+The training process is implemented in:
 
-### Data Processing
+- `finetuningRoberta.py` – fine-tunes and saves the RoBERTa model.
+
+#### Sentiment Analysis Scripts
+
+After fine-tuning, we used the model to perform sentiment analysis on data collected from Reddit and Google News. The following scripts perform inference using our custom model:
+
+- `SA_news.py` – sentiment analysis on Google News data  
+- `SA_reddit.py` – sentiment analysis on Reddit comments
+
+#### Data Processing
 
 In order to work with the data effectively, we started by cleaning up the files that the sentiment analysis produced. There were a lot of columns that were not useful for the model, so those were removed. Additionally, the data was adjusted so that it was formatted the same across all csv files. Each sentiment source was split into two parts - the "Deterministic sentiment" and the "Numerical sentiment". The "Deterministic sentiment" took into account only the sentiment prediction, splitting the possible options into 1, 0, or -1. The "Numerical sentiment", on the other hand, also took into account the confidence of the model in its prediction. This was done by multiplying the confidence by the sentiment determined in the previous step. (Previously, this was done by 1 for positive sentiment, -1 for negative sentiment, and either -0.1 or 0.1 for neutral sentiment, however, this was very inconsistent and commonly produced both better and worse results than the non-random process, so randomness was removed for the sake of replicability.) This process produced just one quantitative sentiment column. 
 
