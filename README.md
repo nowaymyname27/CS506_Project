@@ -1,6 +1,7 @@
 # Sentiment Analysis and Stock Price Predictions
 
 [Midterm Presentation](https://www.youtube.com/watch?v=Z3ZaY0fRCl0&ab_channel=JoseRamirez)
+
 [Final Presentation]()
 
 ## <a id="about">Project Description</a>
