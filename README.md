@@ -52,10 +52,10 @@ Initially, our goal was to extract financial news articles from the Financial Ti
 To address these limitations, we adopted a new two-step approach:
 
 1. **News Article Discovery via API:**  
-   We used a Google news API that searches for articles with "Tesla" in the title and returns both the article titles and their corresponding links. This allowed us to efficiently identify relevant news stories across a wide range of sources, ensuring that our dataset focused specifically on Tesla-related news.
+   `web_scraper.py`: We used a Google news API that searches for articles with "Tesla" in the title and returns both the article titles and their corresponding links. This allowed us to efficiently identify relevant news stories across a wide range of sources, ensuring that our dataset focused specifically on Tesla-related news.
 
 2. **Content Extraction via Web Scraping:**  
-   For each article link obtained from the API, we developed a web scraper to extract the full content of the article. This step enabled us to gather the actual text for sentiment analysis, rather than relying solely on headlines or summaries.
+   `csv_cleaner.py`: For each article link obtained from the API, we developed a web scraper to extract the full content of the article. This step enabled us to gather the actual text for sentiment analysis, rather than relying solely on headlines or summaries.
 
 After collecting the raw article content, we performed an additional cleaning step:  
 We filtered the text to retain only the sentences that explicitly mention "Tesla." This ensured that our sentiment analysis remained tightly focused on content directly relevant to the company, improving the quality and relevance of our sentiment signals.
