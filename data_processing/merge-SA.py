@@ -1,7 +1,7 @@
 import pandas as pd
 
 #import
-tsla_df = pd.read_csv("tsla_processed_2024.csv")
+tsla_df = pd.read_csv("tsla_daily_2024.csv")
 reddit_df = pd.read_csv("reddit_sentiment_processed.csv")
 news_df = pd.read_csv("news_sentiment_processed.csv")
 reddit_DET_df = pd.read_csv("reddit_sentiment_processed_DET.csv")
@@ -12,10 +12,6 @@ reddit_avg = reddit_df.groupby('date')['sentiment'].mean().reset_index()
 news_avg = news_df.groupby('date')['sentiment'].mean().reset_index()
 reddit_DET_avg = reddit_DET_df.groupby('date')['sentiment'].mean().reset_index()
 news_DET_avg = news_DET_df.groupby('date')['sentiment'].mean().reset_index()
-reddit_avg.to_csv("reddit_avg.csv", index=False)
-news_avg.to_csv("news_avg.csv", index=False)
-reddit_DET_avg.to_csv("reddit_det_avg.csv", index=False)
-news_DET_avg.to_csv("news_det_avg.csv", index=False)
 
 #rename for merging
 reddit_avg.rename(columns={'sentiment': 'sentiment_reddit'}, inplace=True)

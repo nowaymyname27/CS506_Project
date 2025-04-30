@@ -5,7 +5,7 @@ import calendar
 import holidays
 
 merged_sentiment_df = pd.read_csv("sentiment_merged.csv")
-tsla_df = pd.read_csv("tsla_processed_2024.csv")
+tsla_df = pd.read_csv("tsla_daily_2024.csv")
 
 start_date = merged_sentiment_df['date'].min()
 end_date = merged_sentiment_df['date'].max()
@@ -72,4 +72,3 @@ final_merged_df = pd.merge(tsla_df, merged_sentiment_df[['date', 'sentiment_redd
 final_merged_df[['sentiment_reddit', 'sentiment_news', 'sentiment_reddit_det', 'sentiment_news_det']] = final_merged_df[['sentiment_reddit', 'sentiment_news', 'sentiment_reddit_det', 'sentiment_news_det']].round(5)
 final_merged_df.to_csv("model_input.csv", index=False)
 print("Merged data with all sentiment columns saved to model_input.csv")
-
