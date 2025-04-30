@@ -30,13 +30,24 @@ After that, we needed to polish this data:
 1. We removed all non-relevant comments that were too small or didn't contain discussions regarding Tesla or Elon Musk;
 2. We sampled 3000 random comments (from about 100000) for our project needs.
 
+
 #### Financial News Data Extraction
 
-Initially, our goal was to extract financial news articles from the **Financial Times**, given its reputation and relevance. However, we encountered two significant obstacles: the site’s content is **behind a paywall**, and their **API access requires paid plans and business credentials** that were beyond our scope for this project.
+Initially, our goal was to extract financial news articles from the Financial Times, given its reputation and relevance. However, we encountered two significant obstacles: the site’s content is behind a paywall, and their API access requires paid plans and business credentials that were beyond our scope for this project.
 
-As a result, we pivoted to a more accessible solution. After evaluating several general news APIs, we selected **[NewsAPI.org](https://newsapi.org/)** due to its **generous free tier** and minimal restrictions. Although it imposes a **100-request daily limit** and only provides access to articles from the **last 30 days**, it proved suitable for our initial data gathering needs.
+To address these limitations, we adopted a new two-step approach:
 
-We used NewsAPI to extract **50 news articles related to Tesla**, which were then used for sentiment analysis. After the initial data collection, we refined our approach by **filtering the article content to include only the sentences that specifically mentioned Tesla**, ensuring our sentiment analysis remained focused and relevant.
+1. **News Article Discovery via API:**  
+   We used a Google news API that searches for articles with "Tesla" in the title and returns both the article titles and their corresponding links. This allowed us to efficiently identify relevant news stories across a wide range of sources, ensuring that our dataset focused specifically on Tesla-related news.
+
+2. **Content Extraction via Web Scraping:**  
+   For each article link obtained from the API, we developed a web scraper to extract the full content of the article. This step enabled us to gather the actual text for sentiment analysis, rather than relying solely on headlines or summaries.
+
+After collecting the raw article content, we performed an additional cleaning step:  
+We filtered the text to retain only the sentences that explicitly mention "Tesla." This ensured that our sentiment analysis remained tightly focused on content directly relevant to the company, improving the quality and relevance of our sentiment signals.
+
+The resulting cleaned CSV file, containing only Tesla-specific sentences from each article, was then used as input for our sentiment analysis pipeline.
+
 
 #### Stocks Data Extraction
 
