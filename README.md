@@ -4,17 +4,20 @@
 
 [Final Presentation]()
 
-## <a id="about">Project Description</a>
+## Running Instructions
+
+INSTRUCTIONS TO RUN THE CODE
+
+## Final Project Detailing
+
+### Initial Project Description and Goals
 
 This project investigates the impact of public sentiment from social media and financial news about a certain company on its stock price movements. By analyzing the quantity and quality of comments on platforms such as X and Reddit, along with financial news headlines (Financial Times), we aim to build a model which will predict the movements in stock price of a particular company based on the public opinion.
 
-## <a id="goals">Goals</a>
-
+#### Goals
 - **Analyze** the correlation between public sentiment and stock price movements.
 - **Develop** a predictive model to forecast stock price changes based on sentiment data.
 - **Identify** which social media and financial news sources have the most significant impact on stock prices.
-
-## Final Project Description
 
 ### Revised Project Description and Goals
 
