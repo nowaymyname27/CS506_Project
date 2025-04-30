@@ -10,23 +10,9 @@ INSTRUCTIONS TO RUN THE CODE
 
 ## Final Project Detailing
 
-### Initial Project Description and Goals
+### Project Description and Goals
 
-This project investigates the impact of public sentiment from social media and financial news about a certain company on its stock price movements. By analyzing the quantity and quality of comments on platforms such as X and Reddit, along with financial news headlines (Financial Times), we aim to build a model which will predict the movements in stock price of a particular company based on the public opinion.
-
-#### Goals
-- **Analyze** the correlation between public sentiment and stock price movements.
-- **Develop** a predictive model to forecast stock price changes based on sentiment data.
-- **Identify** which social media and financial news sources have the most significant impact on stock prices.
-
-### Revised Project Description and Goals
-
-After diving deeper into the project, we faced several challenges and asked ourselves various questions, leading to a slightly modified project description and goals.
-
-In the past month, we asked ourselves a question: what if the companies we choose to analyze (randomly) are very stable in the market, and for them, even major discussions on social media do not result in stock price movements? After talking to several financial experts who confirmed our concern, we decided to start our project by building a model that predicts stock price movements of a company based on public sentiment expressed in social media and news articles for a company that is 1) widely discussed, and 2) significantly affected by public opinion. For such purposes, we chose Tesla.
-
-Our ultimate goal by the end of the semester is to repeat the procedure we describe below for different companies from various sectors and conclude which types of companies the correlation we are researching actually exists. Below, we describe the work done so far and further goals for the rest of the semester.
-
+The goals of this project were slightly modified throughout the semester, due to several challenges we faced. The goal of our project is to identify the correlation between the public sentiment about Tesla expressed on social media and news headlines and Tesla's stock prices. After identifying the correlation between these, we aimed to create a trading strategy which outperforms the always-buy strategy. 
 ### Data Extraction
 
 #### Reddit Data Extraction
