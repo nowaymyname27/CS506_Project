@@ -112,7 +112,7 @@ A little more about the last step - we decided that the most useful yet unbiased
 
 **Relevant file regarding building the model is:**
 
-- 'FINAL-model.py' - the model that we ended up going with (described in this section). 
+- `FINAL-model.py` - the model that we ended up going with (described in this section). 
 
 ### Visualizations
 
