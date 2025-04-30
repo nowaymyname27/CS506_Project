@@ -5,7 +5,7 @@ install:
 	python3.13 -m venv venv
 	. venv/bin/activate && \
 	pip install --upgrade pip && \
-	pip install pandas holidays xgboost scikit-learn matplotlib numpy
+	pip install pandas holidays xgboost scikit-learn matplotlib numpy torch transformers
 
 # Step 2: Run the full data and model pipeline
 run_pipeline:
