@@ -1,3 +1,9 @@
+# This file was uploaded by the creator of data files I found for free for Reddit.
+# I modified it slightly to extract data properly.
+# The original data was contained in 12 different .zst files (representing 12 months of year 2024).
+# This script extracts comments that contain word "tesla" in their bodies.
+# Each month took ~ 4-6 hours of processing with this script and required further work on.
+
 import zstandard
 import os
 import json
@@ -6,74 +12,15 @@ import csv
 from datetime import datetime
 import logging.handlers
 
-# put the path to the input file, or a folder of files to process all of
 input_file = r"RC_2024-11.zst"
-# put the name or path to the output file. The file extension from below will be added automatically. If the input file is a folder, the output will be treated as a folder as well
 output_file = r"output_11"
-# the format to output in, pick from the following options
-#   zst: same as the input, a zstandard compressed ndjson file. Can be read by the other scripts in the repo
-#   txt: an ndjson file, which is a text file with a separate json object on each line. Can be opened by any text editor
-#   csv: a comma separated value file. Can be opened by a text editor or excel
-# WARNING READ THIS: if you use txt or csv output on a large input file without filtering out most of the rows, the resulting file will be extremely large. Usually about 7 times as large as the compressed input file
 output_format = "csv"
-# override the above format and output only this field into a text file, one per line. Useful if you want to make a list of authors or ids. See the examples below
-# any field that's in the dump is supported, but useful ones are
-#   author: the username of the author
-#   id: the id of the submission or comment
-#   link_id: only for comments, the fullname of the submission the comment is associated with
-#   parent_id: only for comments, the fullname of the parent of the comment. Either another comment or the submission if it's top level
 single_field = None
-# the fields in the file are different depending on whether it has comments or submissions. If we're writing a csv, we need to know which fields to write.
-# set this to true to write out to the log every time there's a bad line, set to false if you're expecting only some of the lines to match the key
 write_bad_lines = True
 
-# only output items between these two dates
+# Only output items between these two dates.
 from_date = datetime.strptime("2024-01-01", "%Y-%m-%d")
 to_date = datetime.strptime("2024-12-31", "%Y-%m-%d")
-
-# the field to filter on, the values to filter with and whether it should be an exact match
-# some examples:
-#
-# return only objects where the author is u/watchful1 or u/spez
-# field = "author"
-# values = ["watchful1","spez"]
-# exact_match = True
-#
-# return only objects where the title contains either "stonk" or "moon"
-# field = "title"
-# values = ["stonk","moon"]
-# exact_match = False
-#
-# return only objects where the body contains either "stonk" or "moon". For submissions the body is in the "selftext" field, for comments it's in the "body" field
-# field = "selftext"
-# values = ["stonk","moon"]
-# exact_match = False
-#
-#
-# filter a submission file and then get a file with all the comments only in those submissions. This is a multi step process
-# add your submission filters and set the output file name to something unique
-# input_file = "redditdev_submissions.zst"
-# output_file = "filtered_submissions"
-# output_format = "csv"
-# field = "author"
-# values = ["watchful1"]
-#
-# run the script, this will result in a file called "filtered_submissions.csv" that contains only submissions by u/watchful1
-# now we'll run the script again with the same input and filters, but set the output to single field. Be sure to change the output file to a new name, but don't change any of the other inputs
-# output_file = "submission_ids"
-# single_field = "id"
-#
-# run the script again, this will result in a file called "submission_ids.txt" that has an id on each line
-# now we'll remove all the other filters and update the script to input from the comments file, and use the submission ids list we created before. And change the output name again so we don't override anything
-# input_file = "redditdev_comments.zst"
-# output_file = "filtered_comments"
-# single_field = None  # resetting this back so it's not used
-# field = "link_id"  # in the comment object, this is the field that contains the submission id
-# values_file = "submission_ids.txt"
-# exact_match = False  # the link_id field has a prefix on it, so we can't do an exact match
-#
-# run the script one last time and now you have a file called "filtered_comments.csv" that only has comments from your submissions above
-# if you want only top level comments instead of all comments, you can set field to "parent_id" instead of "link_id"
 
 # change this to field = None if you don't want to filter by anything
 field = "body"
@@ -82,7 +29,6 @@ values = ['Tesla']
 # if this list is very large, it could greatly slow down the process
 values_file = None
 exact_match = False
-
 
 # sets up logging to the console as well as a file
 log = logging.getLogger("bot")
