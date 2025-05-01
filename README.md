@@ -144,7 +144,7 @@ In the future, it would be interesting to see this model applied to current data
 
 ## <a id="credits">Team Members</a>
 
-The work is done by a group of students at Boston University for the *CS 506 - Data Science Tools and Applications* course:
+The work is done by a group of students at Boston University for the * CAS CS 506 - Data Science Tools and Applications* course:
 - **Aleksei Glebov** - aglebov@bu.edu
 - **Alika Grigorova** - alika21@bu.edu
 - **Andrey Mukhin** - amukhin@bu.edu
