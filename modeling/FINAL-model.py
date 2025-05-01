@@ -153,6 +153,17 @@ for test_month in range(1, 13):
     print(f"\n✅ Bad trades avoided: {bad_trades_avoided} / {total_unprofitable_opportunities}")
     print(f"❌ Bad trades taken: {bad_trades_taken}")
 
+# Total yearly profit summary
+total_model_profit_year = sum([row['Profit Model Strategy'] for row in strategy_rows])
+total_always_buy_profit_year = sum([row['Profit Always Buy Strategy'] for row in strategy_rows])
+profit_difference = total_model_profit_year - total_always_buy_profit_year
+percent_difference = 100 * profit_difference / abs(total_always_buy_profit_year) if total_always_buy_profit_year != 0 else float('inf')
+
+print("\n📈 YEARLY PROFIT SUMMARY:")
+print(f"Model Strategy Total Profit: ${total_model_profit_year:.2f}")
+print(f"Always Buy Strategy Total Profit: ${total_always_buy_profit_year:.2f}")
+print(f"Difference: ${profit_difference:.2f} ({percent_difference:+.2f}%)")
+
 # Save final yearly CSVs
 pd.DataFrame(classified_rows).to_csv("TSLA_Yearly_Classified.csv", index=False)
 pd.DataFrame(strategy_rows).to_csv("Trading_Strategy_Yearly.csv", index=False)
