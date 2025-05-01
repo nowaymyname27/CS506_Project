@@ -127,7 +127,7 @@ A little more about the last step - we decided that the most useful yet unbiased
 
 ### Visualizations
 
-![alt text](https://github.com/nowaymyname/CS506_Project/blob/main/Yearly_Profit_Plot.png?raw=true)
+![IMAGE](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Yearly_Profit_Plot.png)
 
 
 **Relevant files regarding visualizations are:**
