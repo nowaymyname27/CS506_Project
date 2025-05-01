@@ -133,7 +133,7 @@ This is the main final result of the project - a graph that depicts the cumulati
 
 ![IMAGE 2](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Monthly_Profit_Comparison.png)
 
-This image shows a comparison of monthly profits between the model and the always buy strategy. It can be seen from this graph that the model never loses any significant amount of money over the course of a month. In the begining of the year, we can see that the model successfully mitigates the losses incurred by the baseline model. In the middle of the year, neither model experiences any signifcant change, showing that the model dos not sabotage neutral times by buying incorrectly. Towards the end of the year, we can see that Tesla experiences high profits, and the model recognizes that. Overall, the model performs well during positive, negative, and neutral times. 
+This image shows a comparison of monthly profits between the model and the always buy strategy. It can be seen from this graph that the model never loses any significant amount of money over the course of a month. In the begining of the year, we can see that the model successfully mitigates the losses incurred by the baseline model. In the middle of the year, neither model experiences any signifcant change, showing that the model does not sabotage neutral times by buying incorrectly. Towards the end of the year, we can see that Tesla experiences high profits, and the model recognizes that. Overall, the model performs well during positive, negative, and neutral times. 
 
 ![IMAGE 3](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Buy_Signal_Timeline.png)
 
@@ -141,11 +141,11 @@ This image shows when exactly the stock was bought by the model (1 - bought). Th
 
 ![IMAGE 4](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Buy_Frequency_Smoothed.png)
 
-This model shows trends in how freqently the model bought a share of Tesla (1 - a lot of buying near that time, 0 - very little buying near that time). This shows the general buying trends of the model, and when the model identified down/up times. 
+This image shows trends in how freqently the model bought a share of Tesla (1 - a lot of buying near that time, 0 - very little buying near that time). This shows the general buying trends of the model, and when the model identified down/up times. 
 
 ![IMAGE 5](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Sentiment_vs_Price.png)
 
-This model shows the comparion between the sentiment scores and stock price on each day. This model shows clearly that there is not an obvious pattern between stock prices and sentiment analysis that can be seen with the naked eye, proving that the model is actually necessary to achieve the results shown in Graph 1. 
+This image shows the comparion between the sentiment scores and stock price on each day. This image shows clearly that there is not an obvious pattern between stock prices and sentiment analysis that can be seen with the naked eye, proving that the model is actually necessary to achieve the results shown in Graph 1. 
 
 **Relevant files regarding visualizations are:**
 
