@@ -129,27 +129,32 @@ A little more about the last step - we decided that the most useful yet unbiased
 
 ![IMAGE 1](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Yearly_Profit_Plot.png)
 
-
+This is the main final result of the project - a graph that depicts the cumulative profits for the model each day, compared to the always buy strategy. We can see from this graph that the model outpferms always buying at all times of the year, and never dips below the baseline. At the end of the year, it even manages to catch only the positive days out of a series of alternations. As stated in the modeling section, we can confidently say that the generated model works well for Tesla. 
 
 ![IMAGE 2](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Monthly_Profit_Comparison.png)
 
-
+This image shows a comparison of monthyl profits between the model and the always buy strategy. It can be seen from this graph that the model never loses any significant amount of money over the course of a month. In the beggining of the year, we can see that the model successfully mitigates the losses incurred by the baseline model. In the middle of the year, neither model experiences any signifcant change, showing that the model dos not sabotage neutral times by buying incorrectly. Towards the end of the year, we can see that Tesla experiences high profits, and the model recognizes that. Overall, the model performs well during positive, negative, and neutral times. 
 
 ![IMAGE 3](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Buy_Signal_Timeline.png)
 
-
+This image shows when exactly the stock was bought by the model (1 - bought). This is simply an expansion of the green dots from the cumulative profit graph. 
 
 ![IMAGE 4](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Buy_Frequency_Smoothed.png)
 
-
+This model shows trends in how freqently the model bought a share of Tesla (1 - a lot of buying near that time, 0 - very little buying near that time). This shows the general buying trends of the model, and when the model identified down/up times. 
 
 ![IMAGE 5](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Sentiment_vs_Price.png)
 
+This model shows the comparion between the sentiment scores and stock price on each day. This model shows clearly that there is not an obvious pattern between stock prices and sentiment analysis that can be seen with the naked eye, proving that the model is actually necessary to achieve the results shown in Graph 1. 
 
 **Relevant files regarding visualizations are:**
 
 - `plot-model.py` - plots the cumulative profit graph
-- `Yearly_Profit_Plot.png` - shows the graph that was generated as a final result
+- `Yearly_Profit_Plot.png` - shows the graph that was generated as a final result (cumulative profit difference)
+- `Monthly_Profit_Comparison.png` - shows the differences in monthly profit between model and always buy strategy (non-cumulative)
+- `Buy_Signal_Timeline.png` - shows when the stock was bought by the model (1 - bought)
+- `Buy_Frequency_Smoothed.png` - shows trends in how freqently the model bought (1 - a lot of buying)
+- `Sentiment_vs_Price.png` - shows the comparion between the sentiment scores and stock price on each day
 
 ### Issues and Moving Forward:
 
