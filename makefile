@@ -10,25 +10,25 @@ install:
 # Step 2: Run the full data and model pipeline
 run_pipeline:
 	# Run sentiment analysis scripts
-	. venv/bin/activate && python SA_news.py
-	. venv/bin/activate && python SA_reddit.py
+	. venv/bin/activate && python sentiment_analysis/SA_news.py
+	. venv/bin/activate && python sentiment_analysis/SA_reddit.py
 	
 	# Move sentiment CSVs to data_processing folder
 	cp sentiment_analysis/news_sentiment.csv data_processing/
 	cp sentiment_analysis/reddit_sentiment.csv data_processing/
 
 	# Run data processing scripts
-	. venv/bin/activate && python filter-SA.py
-	. venv/bin/activate && python adjust-sentiment.py
-	. venv/bin/activate && python merge-SA.py
-	. venv/bin/activate && python factor-weekends.py
+	. venv/bin/activate && python data_processing/filter-SA.py
+	. venv/bin/activate && python data_processing/adjust-sentiment.py
+	. venv/bin/activate && python data_processing/merge-SA.py
+	. venv/bin/activate && python data_processing/factor-weekends.py
 
 	# Move model input to modeling folder
 	cp data_processing/model_input.csv modeling/
 
 	# Run modeling and plotting
-	. venv/bin/activate && python FINAL-model.py
-	. venv/bin/activate && python plot-model.py
+	. venv/bin/activate && python modeling/FINAL-model.py
+	. venv/bin/activate && python modeling/plot-model.py
 
 # Remove the virtual environment
 clean:
