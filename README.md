@@ -8,6 +8,18 @@
 
 These instructions assume that the Reddit and news data are already given, as these files take a long time to generate (multiple days). These files can still be created (if wanted) using the code in this repo, but this code will not be included in the pipeline (as allowed). 
 
+## Prerequisites for macOS
+
+This project requires the OpenMP runtime library (`libomp`) to be installed on macOS for XGBoost to work correctly.
+
+To install `libomp`, run the following command in your terminal:
+
+```bash
+brew install libomp
+```
+
+If you don't have [Homebrew](https://brew.sh/) installed or use a different OS, please install it first.
+
 #### Requirements:
 
 - ✅ Python 3.13
