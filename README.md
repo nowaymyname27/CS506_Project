@@ -127,7 +127,23 @@ A little more about the last step - we decided that the most useful yet unbiased
 
 ### Visualizations
 
-![IMAGE](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Yearly_Profit_Plot.png)
+![IMAGE 1](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Yearly_Profit_Plot.png)
+
+
+
+![IMAGE 2](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Monthly_Profit_Comparisson.png)
+
+
+
+![IMAGE 3](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Buy_Signal_Timeline.png)
+
+
+
+![IMAGE 4](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Buy_Frequency_Smoothed.png)
+
+
+
+![IMAGE 5](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Sentiment_vs_Price.png)
 
 
 **Relevant files regarding visualizations are:**
