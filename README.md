@@ -131,7 +131,7 @@ A little more about the last step - we decided that the most useful yet unbiased
 
 
 
-![IMAGE 2](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Monthly_Profit_Comparisson.png)
+![IMAGE 2](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Monthly_Profit_Comparison.png)
 
 
 
