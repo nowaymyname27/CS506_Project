@@ -127,12 +127,13 @@ A little more about the last step - we decided that the most useful yet unbiased
 
 ### Visualizations
 
-ADD HERE
+![alt text](https://github.com/nowaymyname/CS506_Project/blob/main/Yearly_Profit_Plot.png?raw=true)
+
 
 **Relevant files regarding visualizations are:**
 
 - `plot-model.py` - plots the cumulative profit graph
-- `TSLA_plot_Yearly.png` - shows the graph that was generated as a final result
+- `Yearly_Profit_Plot.png` - shows the graph that was generated as a final result
 
 ### Issues and Moving Forward:
 
