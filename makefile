@@ -14,21 +14,21 @@ run_pipeline:
 	. venv/bin/activate && python sentiment_analysis/SA_reddit.py
 	
 	# Move sentiment CSVs to data_processing folder
-	cp sentiment_analysis/news_sentiment.csv data_processing/
-	cp sentiment_analysis/reddit_sentiment.csv data_processing/
+	cp sentiment_analysis/news_sentiment.csv ./data_processing/
+	cp sentiment_analysis/reddit_sentiment.csv ./data_processing/
 
 	# Run data processing scripts
-	. venv/bin/activate && python data_processing/filter-SA.py
-	. venv/bin/activate && python data_processing/adjust-sentiment.py
-	. venv/bin/activate && python data_processing/merge-SA.py
-	. venv/bin/activate && python data_processing/factor-weekends.py
+	. venv/bin/activate && cd data_processing && python filter-SA.py
+	. venv/bin/activate && cd data_processing && python adjust-sentiment.py
+	. venv/bin/activate && cd data_processing && python merge-SA.py
+	. venv/bin/activate && cd data_processing && python factor-weekends.py
 
 	# Move model input to modeling folder
 	cp data_processing/model_input.csv modeling/
 
 	# Run modeling and plotting
-	. venv/bin/activate && python modeling/FINAL-model.py
-	. venv/bin/activate && python modeling/plot-model.py
+	. venv/bin/activate && cd modeling && python FINAL-model.py
+	. venv/bin/activate && cd modeling && python plot-model.py
 
 # Remove the virtual environment
 clean:
