@@ -131,7 +131,8 @@ ADD HERE
 
 **Relevant files regarding visualizations are:**
 
-- 
+- `plot-model.py` - plots the cumulative profit graph
+- `TSLA_plot_Yearly.png` - shows the graph that was generated as a final result
 
 ### Issues and Moving Forward:
 
