@@ -18,7 +18,7 @@ To install `libomp`, run the following command in your terminal:
 brew install libomp
 ```
 
-If you don't have [Homebrew](https://brew.sh/) installed or use a different OS, please install it first.
+If you don't have [Homebrew](https://brew.sh/) installed, please install it first.
 
 #### Requirements:
 
