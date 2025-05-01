@@ -133,7 +133,7 @@ This is the main final result of the project - a graph that depicts the cumulati
 
 ![IMAGE 2](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Monthly_Profit_Comparison.png)
 
-This image shows a comparison of monthyl profits between the model and the always buy strategy. It can be seen from this graph that the model never loses any significant amount of money over the course of a month. In the beggining of the year, we can see that the model successfully mitigates the losses incurred by the baseline model. In the middle of the year, neither model experiences any signifcant change, showing that the model dos not sabotage neutral times by buying incorrectly. Towards the end of the year, we can see that Tesla experiences high profits, and the model recognizes that. Overall, the model performs well during positive, negative, and neutral times. 
+This image shows a comparison of monthly profits between the model and the always buy strategy. It can be seen from this graph that the model never loses any significant amount of money over the course of a month. In the begining of the year, we can see that the model successfully mitigates the losses incurred by the baseline model. In the middle of the year, neither model experiences any signifcant change, showing that the model dos not sabotage neutral times by buying incorrectly. Towards the end of the year, we can see that Tesla experiences high profits, and the model recognizes that. Overall, the model performs well during positive, negative, and neutral times. 
 
 ![IMAGE 3](https://github.com/nowaymyname27/CS506_Project/blob/main/modeling/plots/Buy_Signal_Timeline.png)
 
