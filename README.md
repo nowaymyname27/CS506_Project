@@ -10,7 +10,7 @@ These instructions assume that the Reddit and news data are already given, as th
 
 ## Prerequisites for macOS
 
-This project requires the OpenMP runtime library (`libomp`) to be installed on macOS for XGBoost to work correctly.
+This project requires the OpenMP runtime library (`libomp`) to be installed on macOS for XGBoost to work correctly (machine-specific).
 
 To install `libomp`, run the following command in your terminal:
 
